@@ -1,45 +1,48 @@
+/*global $, jQuery, document, window, webkitRequestAnimationFrame, mozRequestAnimationFrame, setInterval*/
+
 (function () {
-    var eachNthFrame = 1;
-    var frame = 0;
-    var onEachFrame;
+    'use strict';
+
+    var eachNthFrame = 1, frame = 0, onEachFrame;
 
     if (window.webkitRequestAnimationFrame) {
-        onEachFrame = function (cb) {
-            var _cb = function () {
-                if (frame == eachNthFrame) {
+        onEachFrame = function (job) {
+            var callback = function () {
+                if (frame === eachNthFrame) {
                     frame = 0;
-                    cb();
+                    job();
 
                 }
 
-                frame++;
-                webkitRequestAnimationFrame(_cb);
-            }
-            _cb();
+                frame += 1;
+                webkitRequestAnimationFrame(callback);
+            };
+
+            callback();
         };
     } else if (window.mozRequestAnimationFrame) {
-        onEachFrame = function (cb) {
-            var _cb = function () {
-                if (frame == eachNthFrame) {
+        onEachFrame = function (job) {
+            var callback = function () {
+                if (frame === eachNthFrame) {
                     frame = 0;
-                    cb();
+                    job();
                 }
 
-                frame++;
-                mozRequestAnimationFrame(_cb);
-            }
-            _cb();
+                frame += 1;
+                mozRequestAnimationFrame(callback);
+            };
+
+            callback();
         };
     } else {
-        onEachFrame = function (cb) {
-            if (frame == eachNthFrame) {
+        onEachFrame = function (job) {
+            if (frame === eachNthFrame) {
                 frame = 0;
-                setInterval(cb, 1000 / 12);
+                setInterval(job, 1000 / 12);
             }
 
-            frame++;
-        }
+            frame += 1;
+        };
     }
-
     window.onEachFrame = onEachFrame;
-})();
+}());

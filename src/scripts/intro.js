@@ -1,3 +1,5 @@
+/*global $, jQuery, document, window, playMusic, font*/
+
 /**
  * A 8-Bit-Like intro in terrible JavaScript and CSS
  *
@@ -52,42 +54,92 @@ var text = "Time for some silly stuff :-P... A retro style bling-bling intro mad
     "from Cubehead and can be downloaded with the HVSID collection. Some images were found here and there and they are only for " +
     "demonstration purposes... Enjoy this silly piece of cake +++ ";
 
-$(document).ready(function () {
 
-    virtualPixelWidth = ($(window).width() - ((virtualPixelHorizontalCount * virtualPixelSpacing) * 2) ) / virtualPixelHorizontalCount;
-    virtualPixelHeight = ($('[data-widget="prollscroll"]').height() - ((virtualPixelVerticalCount * virtualPixelSpacing) * 2) ) / virtualPixelVerticalCount;
-    virtualPixelTemplate = '<span class="virtPixel inactive" style="width: ' + virtualPixelWidth + 'px; height: ' + virtualPixelHeight + 'px;"></span>';
-    virtualRowStartTemplate = '<span class="virtPixelRow">';
-    virtualRowEndTemplate = '</span>';
+var getCharFromText = function (char) {
+    'use strict';
+    lastChar = font[text.substr(char, 1).toLowerCase()];
+};
 
-    renderedScrollerTemplate = '';
+var createStarfield = function (count) {
+    'use strict';
 
-    for (var row = 0; row < virtualPixelVerticalCount; row++) {
-        renderedScrollerTemplate += virtualRowStartTemplate;
-        for (var col = 0; col < virtualPixelHorizontalCount; col++) {
-            renderedScrollerTemplate += virtualPixelTemplate;
-        }
-        renderedScrollerTemplate += virtualRowEndTemplate;
+    var i, templateStart = '<span class="star', templateEnd = '"></span>';
+
+    for (i = 0; i < count; i += 1) {
+        $('[data-widget="starfield"]').append(templateStart + (Math.floor(Math.random() * 4))
+            + '" style="top:' + (Math.floor(Math.random() * $(window).height()))
+            + 'px; animation-delay: ' + (Math.floor(Math.random() * 24))
+            + 's; -webkit-animation-delay: ' + (Math.floor(Math.random() * 24)) + 's' + templateEnd);
+
+    }
+};
+
+var getPixelColumnFromLastChar = function (pixelColumn) {
+    'use strict';
+    var row, result = [];
+
+    for (row = 0; row < 8; row += 1) {
+        result[row] = lastChar[row].substr(pixelColumn, 1);
     }
 
-    $('[data-widget="prollscroll"]').append(renderedScrollerTemplate);
+    return result;
+};
 
-    playSong();
-    createStarfield(100);
 
-    window.onEachFrame(doScroll);
+var scrollVirtualDisplay = function () {
+    'use strict';
+    var row;
 
-    $('#loading').fadeOut(1000, function() {
-        $('#page').fadeIn(1000);
-    });
-});
+    for (row = 0; row < 8; row += 1) {
+        virtualDisplay[row] = virtualDisplay[row].substr(1, virtualDisplay[row].length - 1);
+    }
+};
+
+var addPixelColumnAtEndOfVirtualDisplay = function (column) {
+    'use strict';
+    var row, pixelColumn = getPixelColumnFromLastChar(column);
+
+    for (row = 0; row < 8; row += 1) {
+        virtualDisplay[row] = virtualDisplay[row] + pixelColumn[row];
+    }
+};
+
+var mapVirtualDisplayToHtml = function () {
+    'use strict';
+    var i, pixel, row = 0, horizontalPixel = 0, pxl = $('.virtPixel');
+
+    for (i = 0; i < pxl.length; i += 1) {
+
+        pixel = virtualDisplay[row].substr(horizontalPixel, 1);
+
+        if (pixel === '1') {
+            $(pxl[i]).addClass('active');
+        } else {
+            $(pxl[i]).removeClass('active');
+        }
+
+        horizontalPixel += 1;
+
+        if (horizontalPixel >= virtualDisplay[0].length) {
+            horizontalPixel = 0;
+            row += 1;
+        }
+
+        if (row >= 8) {
+            row = 0;
+        }
+    }
+
+};
 
 var doScroll = function () {
+    'use strict';
+
     if (currentSubStep >= (virtualPixelWidth + 2)) {
 
-        if (currentStep == 0) {
+        if (currentStep === 0) {
             getCharFromText(currentChar);
-            currentChar++;
+            currentChar += 1;
 
             if (currentChar >= text.length) {
                 currentChar = 0;
@@ -98,7 +150,7 @@ var doScroll = function () {
         addPixelColumnAtEndOfVirtualDisplay(currentStep);
         mapVirtualDisplayToHtml();
 
-        currentStep++;
+        currentStep += 1;
         currentSubStep = 0;
 
         if (currentStep > 7) {
@@ -112,77 +164,34 @@ var doScroll = function () {
     currentSubStep += 3;
 };
 
+$(document).ready(function () {
+    'use strict';
+    var row = 0, col = 0;
 
-var createStarfield = function(count) {
+    virtualPixelWidth = ($(window).width() - ((virtualPixelHorizontalCount * virtualPixelSpacing) * 2)) / virtualPixelHorizontalCount;
+    virtualPixelHeight = ($('[data-widget="prollscroll"]').height() - ((virtualPixelVerticalCount * virtualPixelSpacing) * 2)) / virtualPixelVerticalCount;
+    virtualPixelTemplate = '<span class="virtPixel inactive" style="width: ' + virtualPixelWidth + 'px; height: ' + virtualPixelHeight + 'px;"></span>';
+    virtualRowStartTemplate = '<span class="virtPixelRow">';
+    virtualRowEndTemplate = '</span>';
 
-    var templateStart = '<span class="star';
-    var templateEnd = '"></span>';
+    renderedScrollerTemplate = '';
 
-    for(var i= 0; i < count; i++) {
-        $('[data-widget="starfield"]').append(templateStart + (Math.floor(Math.random() * 4))
-                                        + '" style="top:' +  (Math.floor(Math.random() * $(window).height()))
-                                        + 'px; animation-delay: '  + (Math.floor(Math.random() * 24))
-                                        + 's; -webkit-animation-delay: ' + (Math.floor(Math.random() * 24)) + 's' + templateEnd);
-
-    }
-};
-
-var getPixelColumnFromLastChar = function (pixelColumn) {
-    var result = [];
-
-    for (var row = 0; row < 8; row++) {
-        result[row] = lastChar[row].substr(pixelColumn, 1);
-    }
-
-    return result;
-};
-
-
-var scrollVirtualDisplay = function () {
-    for (var row = 0; row < 8; row++) {
-        virtualDisplay[row] = virtualDisplay[row].substr(1, virtualDisplay[row].length - 1);
-    }
-};
-
-var addPixelColumnAtEndOfVirtualDisplay = function (column) {
-    var pixelColumn = getPixelColumnFromLastChar(column);
-
-    for (var row = 0; row < 8; row++) {
-        virtualDisplay[row] = virtualDisplay[row] + pixelColumn[row];
-    }
-};
-
-var mapVirtualDisplayToHtml = function () {
-    var row = 0;
-    var horizontalPixel = 0;
-
-    var pxl = $('.virtPixel');
-
-    for (var i = 0; i < pxl.length; i++) {
-
-        var pixel = virtualDisplay[row].substr(horizontalPixel, 1);
-
-        if (pixel == 1) {
-            $(pxl[i]).addClass('active');
-        } else {
-            $(pxl[i]).removeClass('active');
+    for (row = 0; row < virtualPixelVerticalCount; row += 1) {
+        renderedScrollerTemplate += virtualRowStartTemplate;
+        for (col = 0; col < virtualPixelHorizontalCount; col += 1) {
+            renderedScrollerTemplate += virtualPixelTemplate;
         }
-
-        horizontalPixel++;
-
-        if (horizontalPixel >= virtualDisplay[0].length) {
-            horizontalPixel = 0;
-            row++;
-        }
-
-        if (row >= 8) {
-            row = 0;
-        }
+        renderedScrollerTemplate += virtualRowEndTemplate;
     }
 
-};
+    $('[data-widget="prollscroll"]').append(renderedScrollerTemplate);
 
-var getCharFromText = function (char) {
-    lastChar = font[text.substr(char, 1).toLowerCase()];
-};
+    playMusic();
+    createStarfield(100);
 
+    window.onEachFrame(doScroll);
+
+    $('#loading').fadeOut(1000, function () {
+        $('#page').fadeIn(1000);
+    });
+});
