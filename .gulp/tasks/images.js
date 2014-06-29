@@ -6,7 +6,7 @@ gulp.task('images', function() {
     var dest = './dist/assets/images';
 
     return gulp.src('./src/assets/images/**')
-        .pipe(changed(dest)) // Ignore unchanged files
-        .pipe(imagemin()) // Optimize
+        .pipe(changed(dest))
+        .pipe(imagemin())
         .pipe(gulp.dest(dest));
 });
