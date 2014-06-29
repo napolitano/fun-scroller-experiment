@@ -4,6 +4,12 @@ Beside the fun the only purpose for developing this small intro was to see
 what is possible without using webgl and/or canvas and to create a very
 old school text scroller with giant letters.
 
+## Private and Educational use only
+
+This repository may contain libraries from third parties with limited and/or incompatible licenses.
+You should be aware that any form of commercial usage may violate rights of the copyright owners.
+This projects contains an experiment that is not intended complete or partially for commercial use.
+
 ## Credits
 
 Music: "Present" by Gábor Mucsányi (Cubehead) <Not included> [Link](http://www.hvsc.c64.org/#copyright)
