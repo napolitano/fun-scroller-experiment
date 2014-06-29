@@ -1,0 +1,23 @@
+aside {
+  position:absolute;
+  top:30px;
+  right:-70px;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  color:#FFF;
+  background-color:rgba(192,0,0,.95);
+  padding:15px 0px;
+  text-align:center;
+  box-shadow:0 0 5px rgba(0,0,0,.9);
+  width:280px;
+  overflow:hidden;
+  z-index:10000;
+
+}
+
+aside .small {
+  font-size:10px;
+  text-decoration:none;
+  color:#FFF;
+  z-index:10000;
+}

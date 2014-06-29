@@ -1,0 +1,56 @@
+.star5 {
+  display:block;
+  position:absolute;
+  bottom:-300px;
+  left:-800px;
+  background-image:url('../assets/images/sibyllion01.png');
+  -webkit-animation: planet 180s infinite normal linear;
+  animation: planet 180s infinite normal linear;
+  z-index:3;
+
+  width:531px;
+  height:531px;
+  border-radius:50%;
+  box-shadow:0 0 50px rgba(0,0,128, 1);
+}
+
+@-webkit-keyframes planet {
+  0% {
+    bottom:-500px;
+    left:-800px;
+    -webkit-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  50% {
+    bottom:-400px;
+    left:50%;
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+  }
+  100% {
+    bottom:-500px;
+    left:200%;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+  }
+}
+@keyframes planet {
+  0% {
+    bottom:-500px;
+    left:-800px;
+    -webkit-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  50% {
+    bottom:-400px;
+    left:50%;
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+  }
+  100% {
+    bottom:-500px;
+    left:200%;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+  }
+}

@@ -1,0 +1,10 @@
+.idea
+.DS_Store
+.coverrun
+npm-debug.log
+.temp/
+.coverdata/
+.sass-cache/
+bower_components/
+node_modules/
+sid/

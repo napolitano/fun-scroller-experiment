@@ -1,0 +1,8 @@
+preferred_syntax = :scss
+http_path = '/'
+css_dir = 'styles'
+sass_dir = 'src/styles'
+images_dir = 'assets/images'
+fonts_dir = 'assets/fonts'
+relative_assets = true
+line_comments = false

@@ -1,0 +1,61 @@
+.star1, .star2 ,.star3, .star4 {
+  display:block;
+  position:absolute;
+
+  left:-5px;
+  border-radius:50%;
+}
+
+.star1 {
+  -webkit-animation: star1 8s infinite normal linear;
+  animation: star1 8s infinite normal linear;
+  width:4px;
+  height:4px;
+  background-color:#CCC;
+  box-shadow:0 0 6px rgba(255,255,255,1);
+  z-index:10;
+}
+
+.star2 {
+  -webkit-animation: star1 12s infinite normal linear;
+  animation: star1 12s infinite normal linear;
+  background-color:#888;
+  z-index:9;
+  width:3px;
+  height:3px;
+}
+
+.star3 {
+  -webkit-animation: star1 20s infinite normal linear;
+  animation: star1 20s infinite normal linear;
+  background-color:#666;
+  z-index:8;
+  width:2px;
+  height:2px;
+}
+
+.star4 {
+  -webkit-animation: star1 24s infinite normal linear;
+  animation: star1 24s infinite normal linear;
+  background-color:#222;
+  z-index:7;
+  width:1px;
+  height:1px;
+}
+
+@-webkit-keyframes star1 {
+  0% {
+    left:-5px;
+  }
+  100% {
+    left:125%;
+  }
+}
+@keyframes star1 {
+  0% {
+    left:-5px;
+  }
+  100% {
+    left:125%;
+  }
+}

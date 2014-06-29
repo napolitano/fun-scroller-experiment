@@ -1,0 +1,29 @@
+{
+  "name": "Experimental HTML, CSS, JavaScript Intro with Sid-Music",
+  "version": "0.0.2",
+  "authors": [
+    "Axel Napolitano"
+  ],
+  "description": "Experimental project to realize a animated intro-like page with music without using canvas or webgl",
+  "main": "index.html",
+  "keywords": [
+    "experiment",
+    "css",
+    "html5",
+    "javascript",
+    "webaudio"
+  ],
+  "license": "Look at README.md",
+  "homepage": "http://www.napolitano.de/experiments/intro/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "=2.1.1"
+  }
+}
