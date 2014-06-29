@@ -9,11 +9,6 @@ var minifyHTML      = require('gulp-minify-html');
 
 gulp.task('buildblocks', function () {
     return gulp.src('./src/*.html')
-        .pipe(gulpif('*.scss', compass({
-            config_file: './.compass',
-            css: '.temp/styles',
-            sass: 'src/styles'
-        })))
         .pipe(useref.assets())
         .pipe(useref.restore())
         .pipe(useref())
