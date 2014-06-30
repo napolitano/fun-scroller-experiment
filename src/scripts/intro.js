@@ -186,12 +186,14 @@ $(document).ready(function () {
 
     $('[data-widget="prollscroll"]').append(renderedScrollerTemplate);
 
-    playMusic();
     createStarfield(100);
 
     window.onEachFrame(doScroll);
+});
 
+$(window).load(function() {
     $('#loading').fadeOut(1000, function () {
         $('#page').fadeIn(1000);
+        playMusic();
     });
 });
