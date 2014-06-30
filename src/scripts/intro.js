@@ -191,7 +191,9 @@ $(document).ready(function () {
     window.onEachFrame(doScroll);
 });
 
-$(window).load(function() {
+$(window).load(function () {
+    'use strict';
+
     $('#loading').fadeOut(1000, function () {
         $('#page').fadeIn(1000);
         playMusic();
